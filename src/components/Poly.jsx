@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js';
 import { Engine, PollyClient, SynthesizeSpeechCommand } from "@aws-sdk/client-polly";
 
-const Poly = () => {
+function Poly() {
     const [inputText, setInputText] = createSignal('');
     const [audioUrl, setAudioUrl] = createSignal('');
 
@@ -55,7 +55,10 @@ const Poly = () => {
                 value={inputText()}
                 onInput={(e) => setInputText(e.target.value)}
             />
-            <button onClick={synthesizeSpeech}>Synthesize Speech</button>
+            <button onClick={synthesizeSpeech} class={"m-3 w-fit border-black border-4 rounded-xl text-center text-5xl py-5 px-40  bg-sun"}>
+                New Story
+            </button>
+
             {audioUrl() && <audio src={audioUrl()} controls />}
         </div>
     );
