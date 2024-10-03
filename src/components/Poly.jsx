@@ -14,6 +14,7 @@ const Poly = () => {
     });
 
     const synthesizeSpeech = async () => {
+        if (!inputText()) return;
         const params = {
             Text: inputText(),
             OutputFormat: "ogg_vorbis",
@@ -27,8 +28,15 @@ const Poly = () => {
             const data = await client.send(command);
             if (data.AudioStream instanceof ReadableStream) {
                 const reader = data.AudioStream.getReader();
-                const result = await reader.read();
-                const blob = new Blob([result.value], { type: 'audio/mpeg' });
+                const audioChunks = [];
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    audioChunks.push(value);
+                }
+
+                const blob = new Blob(audioChunks, { type: 'audio/ogg' });
                 const url = URL.createObjectURL(blob);
                 setAudioUrl(url);
             }
