@@ -34,6 +34,8 @@ function Poly() {
             OutputFormat: "ogg_vorbis",
             VoiceId: "Salli",
             Engine: "standard"
+            // VoiceId: "Ruth",
+            // Engine: "generative"
         };
 
         const command = new SynthesizeSpeechCommand(params);
@@ -78,7 +80,7 @@ function Poly() {
                 setLoading(false); // Stop loading once the full story is displayed
                 synthesizeSpeech(); // Play the speech after story is fully displayed
             }
-        }, 20);  // Adjust speed of typing effect (milliseconds between each character)
+        }, 10);  // Adjust speed of typing effect (milliseconds between each character)
     };
 
     onCleanup(() => {
