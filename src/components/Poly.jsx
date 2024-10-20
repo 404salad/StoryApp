@@ -17,11 +17,13 @@ function Poly() {
             secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
         },
     });
+    console.log(import.meta.env.VITE_AWS_ACCESS_KEY_ID);
+    console.log(import.meta.env.VITE_AWS_SECRET_ACCESS_KEY);
 
     const stories = {
-        "Story 1": "Once upon a time in a faraway landOnce upon a time in a faraway land...Once upon a time in a faraway land...Once upon a time in a faraway land...Once upon a time in a faraway land...Once upon a time in a faraway land...Once upon a time in a faraway land...Once upon a time in a faraway land......",
-        "Story 2": "The quick brown fox jumps over the lazy dog.",
-        "Story 3": "In the beginning, there was nothing but darkness."
+        "The Little Star": "High up in the sky, a tiny star felt lonely. One night, it zoomed down to visit a forest. The animals welcomed it, dancing under its twinkling light. When morning came, the star whispered it would shine brighter that night so they could play again, and it sparkled happily ever after.",
+        "The Sleepy Owl": "Owl wanted to stay awake all night, but his eyes kept closing. He kept saying just five more minutes. The moon smiled and reminded him that even owls need rest. Owl finally curled up on a cozy branch, dreaming of starlit skies and morning sunshine.",
+        "The Lost Raindrop": "A little raindrop drifted away from its cloud family and floated down to land on a flower petal. The flower told it not to worry because the sky would call it back soon. As the sun came out, the raindrop evaporated, rejoining the clouds and feeling happy to be home again."
     };
 
     const synthesizeSpeech = async () => {
@@ -76,7 +78,7 @@ function Poly() {
                 setLoading(false); // Stop loading once the full story is displayed
                 synthesizeSpeech(); // Play the speech after story is fully displayed
             }
-        }, 50);  // Adjust speed of typing effect (milliseconds between each character)
+        }, 20);  // Adjust speed of typing effect (milliseconds between each character)
     };
 
     onCleanup(() => {
@@ -84,20 +86,21 @@ function Poly() {
     });
 
     return (
-        <div>
+        <div style={{ backgroundColor: '#FFEB3B', color: '#2196F3' }} class="flex flex-col items-center justify-center l-screen">
             {/* Dropdown to select a story */}
             <select
+                style={{ backgroundColor: '#FF9800', color: 'black' }}
                 value={selectedStory()}
                 onChange={(e) => {
                     setSelectedStory(e.target.value);
                     setStoryText(stories[e.target.value]);  // Store full story
                     startTypingEffect();  // Trigger the typing effect
                 }}
-                class="m-3 w-fit border-black border-4 rounded-xl text-center text-5xl py-5 px-40 bg-white"
+                class="m-3 w-fit border-black border-4 rounded-xl text-left text-5xl py-5 px-40 bg-white"
             >
                 <option value="">Select a story</option>
                 {Object.keys(stories).map((title) => (
-                    <option value={title}>{title}</option>
+                    <option value={title} key={title}>{title}</option>
                 ))}
             </select>
 
@@ -110,7 +113,7 @@ function Poly() {
 
             {/* Story text gradually revealed */}
             {!loading() && selectedStory() && (
-                <div class="m-3 p-5 border border-gray-300 rounded-lg bg-gray-100 text-3xl">
+                <div class="m-3 p-5 border border-gray-300 rounded-lg bg-gray-100 text-3xl text-center">
                     {displayedText()}
                 </div>
             )}
