@@ -17,8 +17,6 @@ function Poly() {
             secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
         },
     });
-    console.log(import.meta.env.VITE_AWS_ACCESS_KEY_ID);
-    console.log(import.meta.env.VITE_AWS_SECRET_ACCESS_KEY);
 
     const stories = {
         "The Little Star": "High up in the sky, a tiny star felt lonely. One night, it zoomed down to visit a forest. The animals welcomed it, dancing under its twinkling light. When morning came, the star whispered it would shine brighter that night so they could play again, and it sparkled happily ever after.",
